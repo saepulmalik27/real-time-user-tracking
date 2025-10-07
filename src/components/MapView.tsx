@@ -1,17 +1,8 @@
 'use client'
-import dynamic from 'next/dynamic'
-
 import { jakartaCoordinates } from '@/lib/constants/general.constants'
-
-/**
- * not working with nextjs app router
- * import { MapContainer, TileLayer } from "react-leaflet"
- * error : window is not defined
- * solusion : use dynamic import
- */
-const MapContainer = dynamic(() => import('react-leaflet').then((m) => m.MapContainer), { ssr: false })
-const TileLayer = dynamic(() => import('react-leaflet').then((m) => m.TileLayer), { ssr: false })
+import { CircleMarker, MapContainer, Popup, TileLayer } from 'react-leaflet'
 import 'leaflet/dist/leaflet.css'
+import { users } from '@/lib/data/mockup.user'
 
 const MapView = () => {
     return (
@@ -20,6 +11,16 @@ const MapView = () => {
                 attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
                 url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
             />
+            {users.map((user) => (
+                <CircleMarker
+                    key={user.id}
+                    center={[user.latitude, user.longitude]}
+                    pathOptions={{ color: 'blue', fillColor: 'green', fillOpacity: 0.5 }}
+                    radius={10}
+                >
+                    <Popup>{user.name}</Popup>
+                </CircleMarker>
+            ))}
         </MapContainer>
     )
 }
