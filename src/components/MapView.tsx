@@ -1,10 +1,11 @@
 'use client'
-import { jakartaCoordinates } from '@/lib/constants/general.constants'
+import { jakartaCoordinates } from '@/lib/constants/geo.constants'
 import { CircleMarker, MapContainer, Popup, TileLayer } from 'react-leaflet'
 import 'leaflet/dist/leaflet.css'
-import { users } from '@/lib/data/mockup.user'
+import { seedUsers } from '@/lib/utils/seed-users.util'
 
 const MapView = () => {
+    const users = seedUsers(150)
     return (
         <MapContainer center={jakartaCoordinates} zoom={13} preferCanvas={true} className="w-full h-full">
             <TileLayer
@@ -15,8 +16,8 @@ const MapView = () => {
                 <CircleMarker
                     key={user.id}
                     center={[user.latitude, user.longitude]}
-                    pathOptions={{ color: 'blue', fillColor: 'green', fillOpacity: 0.5 }}
-                    radius={10}
+                    pathOptions={{ color: 'blue', fillOpacity: 0.8 }}
+                    radius={6}
                 >
                     <Popup>{user.name}</Popup>
                 </CircleMarker>

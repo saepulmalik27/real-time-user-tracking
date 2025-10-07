@@ -6,5 +6,5 @@ export interface TUser {
 export interface TUserLocation extends TUser {
     latitude: number
     longitude: number
-    speed?: number // in m/s
+    speed: number // in m/s
 }

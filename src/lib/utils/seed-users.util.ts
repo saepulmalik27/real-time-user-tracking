@@ -1,5 +1,10 @@
-import { jakartaCoordinatesObj } from '@/lib/constants/general.constants'
-import { TUserLocation } from '../types/users.type'
+import { JAKARTA_BBOX } from '@/lib/constants/geo.constants'
+import { TUserLocation } from '@/lib/types/users.type'
+
+export const randomInBbox = () => ({
+    lat: JAKARTA_BBOX.minLat + Math.random() * (JAKARTA_BBOX.maxLat - JAKARTA_BBOX.minLat),
+    lng: JAKARTA_BBOX.minLng + Math.random() * (JAKARTA_BBOX.maxLng - JAKARTA_BBOX.minLng),
+})
 
 /**
  * Generate a list of user with locations on jakarta area.
@@ -8,41 +13,14 @@ import { TUserLocation } from '../types/users.type'
  */
 
 export function seedUsers(count: number = 120): TUserLocation[] {
-    const center = jakartaCoordinatesObj
-    const radius = 0.5
-
     return Array.from({ length: count }, (_, i) => {
-        const angle = Math.random() * 2 * Math.PI
-        const distance = Math.random() * radius
-
-        const latitude = center.lat + distance * Math.cos(angle)
-        const longitude = center.lng + distance * Math.sin(angle)
-
+        const { lat, lng } = randomInBbox()
         return {
             id: (i + 1).toString(),
             name: `Malik ${i + 1}`,
-            latitude,
-            longitude,
+            latitude: lat,
+            longitude: lng,
             speed: parseFloat((Math.random() * 3).toFixed(2)),
-        }
-    })
-}
-
-/**
- * Simulate user movement by updating their latitude and longitude based on their speed and a random direction.
- */
-export function stepUsers(users: TUserLocation[]): TUserLocation[] {
-    return users.map((user) => {
-        const angle = Math.random() * 2 * Math.PI
-        const distance = (user?.speed ?? 1) * 0.001 // Convert speed to degrees
-
-        const latitude = user.latitude + distance * Math.cos(angle)
-        const longitude = user.longitude + distance * Math.sin(angle)
-
-        return {
-            ...user,
-            latitude,
-            longitude,
         }
     })
 }
