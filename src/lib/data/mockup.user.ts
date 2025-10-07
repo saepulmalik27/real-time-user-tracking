@@ -1,6 +1,6 @@
-import { TUser } from '@/lib/types/users.type'
+import { TUserLocation } from '@/lib/types/users.type'
 
-export const users: TUser[] = [
+export const users: TUserLocation[] = [
     { id: '1', name: 'Ahmad Pratama', latitude: -6.2123, longitude: 106.8451, speed: 2.1 },
     { id: '2', name: 'Siti Aisyah', latitude: -6.2014, longitude: 106.8329, speed: 1.8 },
     { id: '3', name: 'Budi Santoso', latitude: -6.1878, longitude: 106.8294, speed: 2.5 },
