@@ -20,7 +20,8 @@ export function seedUsers(count: number = 120): TUserLocation[] {
             name: `Malik ${i + 1}`,
             latitude: lat,
             longitude: lng,
-            speed: parseFloat((Math.random() * 3).toFixed(2)),
+            // Increase base speed so movement is noticeable (m/s)
+            speed: parseFloat((5 + Math.random() * 15).toFixed(2)),
         }
     })
 }

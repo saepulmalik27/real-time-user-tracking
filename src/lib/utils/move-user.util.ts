@@ -4,12 +4,15 @@ import { JAKARTA_BBOX } from '../constants/geo.constants'
 import { TUserLocation } from '../types/users.type'
 
 const METERS_PER_DEG_LAT = 111_320
+// Visual multiplier to make movement easier to see on the map.
+// Increase if motion feels too subtle; decrease if too jumpy.
+const SPEED_MULTIPLIER = 8
 const metersPerDegLngAt = (lat: number) => METERS_PER_DEG_LAT * Math.cos((lat * Math.PI) / 180)
 
 export const moveUserWithinJakarta = (user: TUserLocation): TUserLocation => {
     // choose random direction each tick
     const theta = Math.random() * 2 * Math.PI
-    const distance = user.speed // per tick = 1 second
+    const distance = user.speed * SPEED_MULTIPLIER // per tick = 1 second (visually amplified)
     const dLat = (distance / METERS_PER_DEG_LAT) * Math.sin(theta)
     const dLng = (distance / metersPerDegLngAt(user.latitude)) * Math.cos(theta)
 
