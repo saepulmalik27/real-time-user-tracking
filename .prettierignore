@@ -1,0 +1,13 @@
+# Build outputs
+.next
+out
+build
+dist
+
+# Dependencies
+node_modules
+
+# Misc
+coverage
+*.log
+package-lock.json
