@@ -1,7 +1,6 @@
-import { Marker, MarkerEvent } from 'react-map-gl/maplibre'
 import { User } from '@/types/user.types'
 import { MapPin } from 'lucide-react'
-
+import { Marker } from 'react-map-gl/maplibre'
 interface UserMarkerProps {
     user: User
     isSelected: boolean
@@ -9,12 +8,14 @@ interface UserMarkerProps {
 }
 
 export function UserMarker({ user, isSelected, onClick }: UserMarkerProps) {
+    console.log({ user })
+
     return (
         <Marker
             latitude={user.latitude}
             longitude={user.longitude}
             anchor="bottom"
-            onClick={(e: MarkerEvent<MouseEvent>) => {
+            onClick={(e) => {
                 e.originalEvent.stopPropagation()
                 onClick(user)
             }}
