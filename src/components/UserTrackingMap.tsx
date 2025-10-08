@@ -1,8 +1,9 @@
 'use client'
-import { generateUsers } from '@/lib/user-generator.util'
-import { useMemo, useRef } from 'react'
-import Map, { MapRef, ViewState } from 'react-map-gl/maplibre'
+import { useMemo } from 'react'
+import Map, { ViewState } from 'react-map-gl/maplibre'
 import { UserMarker } from './UserMarker'
+import { useUserStore } from '@/store/user-store'
+import { useUserTrackingMap } from '@/hooks/use-user-tracking-map'
 
 const initialViewState: Partial<ViewState> = {
     longitude: 117.5,
@@ -11,10 +12,8 @@ const initialViewState: Partial<ViewState> = {
 }
 
 export default function UserTrackingMap() {
-    const mapRef = useRef<MapRef | null>(null)
-    //   const updateIntervalRef = useRef<NodeJS.Timeout | null>(null);
-
-    const filteredUsers = generateUsers(2)
+    const { mapRef } = useUserTrackingMap()
+    const { filteredUsers } = useUserStore()
 
     const markers = useMemo(() => {
         return filteredUsers.map((user) => (

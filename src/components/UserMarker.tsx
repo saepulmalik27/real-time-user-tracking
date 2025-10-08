@@ -1,4 +1,4 @@
-import { Marker } from 'react-map-gl/maplibre'
+import { Marker, MarkerEvent } from 'react-map-gl/maplibre'
 import { User } from '@/types/user.types'
 import { MapPin } from 'lucide-react'
 
@@ -14,8 +14,7 @@ export function UserMarker({ user, isSelected, onClick }: UserMarkerProps) {
             latitude={user.latitude}
             longitude={user.longitude}
             anchor="bottom"
-            onClick={(e: unknown) => {
-                // @ts-expect-error : type issue with react-map-gl
+            onClick={(e: MarkerEvent<MouseEvent>) => {
                 e.originalEvent.stopPropagation()
                 onClick(user)
             }}
